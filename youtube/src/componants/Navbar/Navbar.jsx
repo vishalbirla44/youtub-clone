@@ -19,8 +19,10 @@ const App = () => {
         </div>
 
         <div className='nav-middle flex-div'>
+          <div className='search-box'>
           <input type="text" placeholder='search' />
           <img src={search_icon} alt="" />
+          </div>
         </div>
 
         <div className='nav-right flex-div'>
