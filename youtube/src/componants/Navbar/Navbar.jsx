@@ -7,6 +7,7 @@ import uplode_icon from '../../assets/upload.png'
 import more_icon from '../../assets/more.png'
 import profille_icon from '../../assets/user_profile.jpg'
 import notificatio_icon from '../../assets/notification.png'
+import './Navbar.css'
 
 const App = () => {
   return (
