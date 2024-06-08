@@ -17,9 +17,9 @@ import cameron from '../../assets/cameron.png'
 
 import './Sidebar.css'
 
-const Sidebar = () => {
+const Sidebar = ({sidebar}) => {
   return (
-    <div className='sidebar'>
+    <div className={`sidebar ${sidebar?"":"small-sidebar"}`}>
       <div className='sortcut-links'>
         <div className="side-link">
           <img src={home} alt="" /><p>Home</p>
@@ -67,7 +67,20 @@ const Sidebar = () => {
         </div>
 
         <div className="side-link">
-          <img src={jack} alt="" /><p>PewDiePie</p>
+          <img src={simon} alt="" /><p>MrBeast</p>
+        </div>
+
+        <div className="side-link">
+          <img src={tom} alt="" /><p>Justin Biebar</p>
+        </div>
+
+        <div className="side-link">
+          <img src={megan} alt="" /><p>5-Minute Craft</p>
+        </div>
+
+
+        <div className="side-link">
+          <img src={cameron} alt="" /><p>Nas Daily</p>
         </div>
 
 

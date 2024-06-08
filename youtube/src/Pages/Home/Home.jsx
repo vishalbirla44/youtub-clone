@@ -2,10 +2,10 @@ import React from 'react'
 import './Home.css'
 import Sidebar from '../../componants/Sidebar/Sidebar'
 
-const Home = () => {
+const Home = ({sidebar}) => {
   return (
     <div>
-      <Sidebar/>
+      <Sidebar sidebar={sidebar}/>
     </div>
   )
 }

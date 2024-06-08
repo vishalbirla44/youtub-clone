@@ -9,12 +9,12 @@ import profille_icon from '../../assets/user_profile.jpg'
 import notificatio_icon from '../../assets/notification.png'
 import './Navbar.css'
 
-const App = () => {
+const App = ({setsidebar}) => {
   return (
   
       <nav className='flex-div'>
         <div className='nav-left flex-div'>
-          <img src={menu_icon} className='menu-icon' />
+          <img src={menu_icon} className='menu-icon' onClick={() => setsidebar(prev=>prev===false?true:false)}/>
           <img src={Logo} className='Logo' />
         </div>
 
