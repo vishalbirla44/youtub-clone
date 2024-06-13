@@ -1,7 +1,7 @@
 import React from 'react'
 import './Home.css'
 import Sidebar from '../../componants/Sidebar/Sidebar'
-import Feed from '../../Feed/Feed'
+import Feed from '../../componants/Feed/Feed'
 
 const Home = ({sidebar}) => {
   return (
