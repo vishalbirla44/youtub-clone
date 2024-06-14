@@ -35,10 +35,10 @@ const PlayVIdeo = ({ videoId }) => {
 
       <h3>{apideta ? apideta.snippet.title : 'Title here'}</h3>
       <div className='play_video_info'>
-        <p>{apideta ? value_converter(apideta.statistics.viewCount) : "16K"} &bull; {moment(apideta.snippet.publishedAt).FromNow()} </p>
+        <p>{apideta ? value_converter(apideta.statistics.viewCount) : "16K"} &bull; {moment(apideta ? apideta.snippet.publishedAt:"2 days").fromNow()} </p>
         <div>
-          <span><img src={like} alt="" />123</span>
-          <span><img src={dislike} alt="" />2</span>
+          <span><img src={like} alt="" />{ apideta? value_converter(apideta.statistics.likeCount):"200"}</span>
+          <span><img src={dislike} alt="" /></span>
           <span><img src={share} alt="" />Share</span>
           <span><img src={save} alt="" />Save</span>
         </div>
@@ -54,10 +54,10 @@ const PlayVIdeo = ({ videoId }) => {
       </div>
 
       <div className='vid-description'>
-        <p>chanel thats essy to learn</p>
-        <p> subscribe this chanel </p>
+        <p>{apideta?apideta.snippet.description.slice(0,250):"no"}</p>
+       
         <hr />
-        <h4>130 Comments</h4>
+        <h4>{apideta?value_converter(apideta.statistics.commentCount):'120'} Comments</h4>
         <div className='comment'>
           <img src={user_profile} alt="" />
           <div>
