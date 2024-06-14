@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './PlayVideo.css'
 import video1 from '../../assets/video.mp4'
 import like from '../../assets/like.png'
@@ -7,11 +7,32 @@ import share from '../../assets/share.png'
 import save from '../../assets/save.png'
 import jack from '../../assets/jack.png'
 import user_profile from '../../assets/user_profile.jpg'
-const PlayVIdeo = () => {
+import { API_KEY } from '../../Data'
+const PlayVIdeo = ({videoId}) => {
+
+const [apideta, setApideta] = useState(null)
+ 
+const fatchVideoDeta = async () => {
+  const videoDteails_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${API_KEY}`
+
+  await fetch(videoDteails_url).then(response=>response.json()).then(data => setApideta(data.items[0]))
+
+
+}
+
+console.log(apideta)
+
+
+useEffect(() => {
+fatchVideoDeta()
+},[])
+
   return (
     <div className='play-video'>
-      <video src={video1} controls autoPlay muted></video>
-      <h3>Best youtube Chanel To Learn a HTML and CSS</h3>
+      {/* <video src={video1} controls autoPlay muted></video> */}
+      <iframe src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+      <h3>{apideta?apideta.snippet.title:'Title here'}</h3>
       <div className='play_video_info'>
         <p>145 Views &bull; 2 days ago </p>
         <div>
