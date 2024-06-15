@@ -12,7 +12,8 @@ import moment from 'moment'
 const PlayVIdeo = ({ videoId }) => {
 
   const [apideta, setApideta] = useState(null)
-
+  const [channelData,setchannelData]= useState(null)
+  const [commentData,setcommentData] = useState(null)
   const fatchVideoDeta = async () => {
     const videoDteails_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${API_KEY}`
 
@@ -21,12 +22,26 @@ const PlayVIdeo = ({ videoId }) => {
 
   }
 
+  const fatchOtherData = async () => {
+    const channelData_url = `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${apideta.snippet.channelId}&key=${API_KEY}`
+    await fetch(channelData_url).then(response => response.json()).then(data => setchannelData(data.items[0]))
+
+
+    //  fatching commnet deta
+    const commnet_url = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&videoId=${videoId}&key=${API_KEY}`
+
+    await fetch(commnet_url).then(response=>response.json()).then(data =>setcommentData(data.items))
+  }
   
 
 
   useEffect(() => {
     fatchVideoDeta()
   }, [])
+
+  useEffect(()=>{
+    fatchOtherData()
+  },[apideta])
 
   return (
     <div className='play-video'>
@@ -45,10 +60,10 @@ const PlayVIdeo = ({ videoId }) => {
       </div>
       <hr />
       <div className='publisher'>
-        <img src={jack} alt="" />
+        <img src={channelData?channelData.snippet.thumbnails.default.url:""} alt="" />
         <div>
-          <p>chay or code</p>
-          <span> 1M Subscribers</span>
+          <p>{apideta?apideta.snippet.channelTitle:""}</p>
+          <span> {channelData? value_converter( channelData.statistics.subscriberCount):"1M"} Subscribers</span>
         </div>
         <button>Subscribe</button>
       </div>
