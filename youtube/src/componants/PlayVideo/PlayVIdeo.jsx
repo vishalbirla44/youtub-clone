@@ -13,7 +13,7 @@ const PlayVIdeo = ({ videoId }) => {
 
   const [apideta, setApideta] = useState(null)
   const [channelData,setchannelData]= useState(null)
-  const [commentData,setcommentData] = useState(null)
+  const [commentData,setcommentData] = useState([])
   const fatchVideoDeta = async () => {
     const videoDteails_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${API_KEY}`
 
@@ -23,7 +23,7 @@ const PlayVIdeo = ({ videoId }) => {
   }
 
   const fatchOtherData = async () => {
-    const channelData_url = `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${apideta.snippet.channelId}&key=${API_KEY}`
+    const channelData_url = `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&maxResults=50&id=${apideta.snippet.channelId}&key=${API_KEY}`
     await fetch(channelData_url).then(response => response.json()).then(data => setchannelData(data.items[0]))
 
 
@@ -73,72 +73,26 @@ const PlayVIdeo = ({ videoId }) => {
        
         <hr />
         <h4>{apideta?value_converter(apideta.statistics.commentCount):'120'} Comments</h4>
-        <div className='comment'>
-          <img src={user_profile} alt="" />
-          <div>
-            <h3>Vishal Birla <span> 1 Day ago</span></h3>
-            <p> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error laboriosam cumque libero reiciendis impedit adipisci quasi hic quia veniam. Voluptatibus beatae rerum quidem maxime error omnis deleniti ipsa assumenda quaerat.</p>
-            <div className='comment-action'>
-              <img src={like} alt="" />
-              <span>234</span>
-              <img src={dislike} alt="" />
-            </div>
+
+
+        {commentData.map((item,index)=>{
+        return(
+          
+        <div key={index} className='comment'>
+        <img src={item.snippet.topLevelComment.snippet.authorProfileImageUrl}  />
+        <div>
+          <h3>{item.snippet.topLevelComment.snippet.authorDisplayName} <span> 1 Day ago</span></h3>
+          <p>{item.snippet.topLevelComment.snippet.textDisplay}</p>
+          <div className='comment-action'>
+            <img src={like} alt="" />
+            <span>{item.snippet.topLevelComment.snippet.likeCount}</span>
+            <img src={dislike} alt="" />
           </div>
         </div>
-
-        <div className='comment'>
-          <img src={user_profile} alt="" />
-          <div>
-            <h3>Vishal Birla <span> 1 Day ago</span></h3>
-            <p> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error laboriosam cumque libero reiciendis impedit adipisci quasi hic quia veniam. Voluptatibus beatae rerum quidem maxime error omnis deleniti ipsa assumenda quaerat.</p>
-            <div className='comment-action'>
-              <img src={like} alt="" />
-              <span>234</span>
-              <img src={dislike} alt="" />
-            </div>
-          </div>
-        </div>
-
-        <div className='comment'>
-          <img src={user_profile} alt="" />
-          <div>
-            <h3>Vishal Birla <span> 1 Day ago</span></h3>
-            <p> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error laboriosam cumque libero reiciendis impedit adipisci quasi hic quia veniam. Voluptatibus beatae rerum quidem maxime error omnis deleniti ipsa assumenda quaerat.</p>
-            <div className='comment-action'>
-              <img src={like} alt="" />
-              <span>234</span>
-              <img src={dislike} alt="" />
-            </div>
-          </div>
-        </div>
-
-        <div className='comment'>
-          <img src={user_profile} alt="" />
-          <div>
-            <h3>Vishal Birla <span> 1 Day ago</span></h3>
-            <p> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error laboriosam cumque libero reiciendis impedit adipisci quasi hic quia veniam. Voluptatibus beatae rerum quidem maxime error omnis deleniti ipsa assumenda quaerat.</p>
-            <div className='comment-action'>
-              <img src={like} alt="" />
-              <span>234</span>
-              <img src={dislike} alt="" />
-            </div>
-          </div>
-        </div>
-
-        <div className='comment'>
-          <img src={user_profile} alt="" />
-          <div>
-            <h3>Vishal Birla <span> 1 Day ago</span></h3>
-            <p> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error laboriosam cumque libero reiciendis impedit adipisci quasi hic quia veniam. Voluptatibus beatae rerum quidem maxime error omnis deleniti ipsa assumenda quaerat.</p>
-            <div className='comment-action'>
-              <img src={like} alt="" />
-              <span>234</span>
-              <img src={dislike} alt="" />
-            </div>
-          </div>
-        </div>
-
-
+      </div>   
+        )
+        })}         
+       
       </div>
     </div>
   )
