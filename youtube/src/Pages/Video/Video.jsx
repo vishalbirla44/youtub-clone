@@ -8,10 +8,10 @@ const Video = () => {
   const {videoId, categouryId} = useParams()
   return (
     <div className='play-container'>
-      <PlayVIdeo videoId={videoId} categouryId={categouryId}/>
+      <PlayVIdeo videoId={videoId} />
       <Recommended categouryId={categouryId}/>
     </div>
   )
 }
 
-export default Video
+export default Video;
