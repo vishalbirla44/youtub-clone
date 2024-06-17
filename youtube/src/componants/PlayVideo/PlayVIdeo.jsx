@@ -9,7 +9,10 @@ import jack from '../../assets/jack.png'
 import user_profile from '../../assets/user_profile.jpg'
 import { API_KEY, value_converter } from '../../Data'
 import moment from 'moment'
-const PlayVIdeo = ({ videoId }) => {
+import { useParams } from 'react-router-dom'
+const PlayVIdeo = () => {
+ 
+const {videoId} = useParams()
 
   const [apideta, setApideta] = useState(null)
   const [channelData,setchannelData]= useState(null)
@@ -37,7 +40,7 @@ const PlayVIdeo = ({ videoId }) => {
 
   useEffect(() => {
     fatchVideoDeta()
-  }, [])
+  }, [videoId])
 
   useEffect(()=>{
     fatchOtherData()
